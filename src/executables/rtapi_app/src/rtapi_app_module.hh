@@ -31,32 +31,32 @@
 class Module
 {
   public:
-    string name;
+    std::string name;
     void *handle;
     char *errmsg;
 
     Module() = default;
     ~Module();
 
-    int load(string module);
-    string path();
+    int load(std::string module);
+    std::string path();
     void clear_err();
-    template <class T> T sym(const string &name);
+    template <class T> T sym(const std::string &name);
     template <class T> T sym(const char *name);
     int elf_section(const char *section_name, void **dest);
     int close();
 };
 
-int Module::load(string module)
+int Module::load(std::string module)
 {
     char module_path[PATH_MAX];
     bool is_rpath;
-    string dlpath;
+    std::string dlpath;
     struct stat st;
 
     // For module given as a path (sans `.so`), use the path basename as the
     // module name
-    if (module.find_last_of("/") != string::npos) {
+    if (module.find_last_of("/") != std::string::npos) {
         name = module.substr(module.find_last_of("/") + 1);
         dlpath = module + ".so";
         is_rpath = false; // `module` contains `/` chars
@@ -95,7 +95,7 @@ int Module::load(string module)
     return 0;
 }
 
-string Module::path()
+std::string Module::path()
 {
     if (!handle) {
         rtapi_print_msg(RTAPI_MSG_ERR,
@@ -142,7 +142,7 @@ template <class T> T Module::sym(const char *sym_name)
     return res;
 }
 
-template <class T> T Module::sym(const string &sym_name)
+template <class T> T Module::sym(const std::string &sym_name)
 {
     return sym<T>(sym_name.c_str());
 }

@@ -109,15 +109,23 @@ set(CMAKE_CC_STANDARD 17)
 set(CMAKE_CXX_STANDARD 14)
 
 # TODO: Make a real effort at setting relevant flags
-set(CMAKE_C_FLAGS_DEBUG "-g -O0")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
-set(CMAKE_C_FLAGS_RELEASE "-O0")
-set(CMAKE_CXX_FLAGS_RELEASE "-O0")
-set(CMAKE_C_FLAGS_RELWITHDEBINFO "-g -O0")
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g -O0")
+# orig: set(CMAKE_C_FLAGS_DEBUG "-g -O0")
+# orig: set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
+# orig: set(CMAKE_C_FLAGS_RELEASE "-O0")
+# orig: set(CMAKE_CXX_FLAGS_RELEASE "-O0")
+# orig: set(CMAKE_C_FLAGS_RELWITHDEBINFO "-g -O0")
+# orig: set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g -O0")
 
-message(STATUS "Value of CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
-message(STATUS "Value of CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
+# FLAGS for RPi5 w/ 32-bit OS
+set(CMAKE_C_FLAGS_DEBUG "-g -O0 -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4")
+set(CMAKE_C_FLAGS_RELEASE "-O0 -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4")
+set(CMAKE_CXX_FLAGS_RELEASE "-O0 -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4")
+set(CMAKE_C_FLAGS_RELWITHDEBINFO "-g -O0 -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g -O0 -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4")
+
+message(STATUS "Value of CMAKE_CXX_FLAGS_DEBUG: ${CMAKE_CXX_FLAGS_DEBUG}")
+message(STATUS "Value of CMAKE_C_FLAGS_DEBUG: ${CMAKE_C_FLAGS_DEBUG}")
 message(STATUS "Value of CMAKE_EXE_LINKER_FLAGS: ${CMAKE_EXE_LINKER_FLAGS}")
 
 define_property(
